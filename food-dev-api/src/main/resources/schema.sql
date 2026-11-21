@@ -1,0 +1,15 @@
+CREATE TABLE IF NOT EXISTS users (id VARCHAR(64) PRIMARY KEY, username VARCHAR(32) NOT NULL UNIQUE, password VARCHAR(128) NOT NULL, nickname VARCHAR(32), face VARCHAR(255), mobile VARCHAR(20), email VARCHAR(64), sex INT DEFAULT 2, created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS category (id INT PRIMARY KEY, name VARCHAR(32) NOT NULL, type INT NOT NULL, father_id INT DEFAULT 0, logo VARCHAR(255), sod INT DEFAULT 1);
+CREATE TABLE IF NOT EXISTS carousel (id INT PRIMARY KEY, image_url VARCHAR(255), background_color VARCHAR(32), item_id VARCHAR(64), is_show INT DEFAULT 1, sort INT DEFAULT 1);
+CREATE TABLE IF NOT EXISTS items (id VARCHAR(64) PRIMARY KEY, item_name VARCHAR(64) NOT NULL, cat_id INT, root_cat_id INT, sell_counts INT DEFAULT 0, price DECIMAL(10,2) DEFAULT 0, main_img VARCHAR(255), content TEXT, created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS items_img (id VARCHAR(64) PRIMARY KEY, item_id VARCHAR(64), url VARCHAR(255), sort INT DEFAULT 1, is_main INT DEFAULT 0);
+CREATE TABLE IF NOT EXISTS items_spec (id VARCHAR(64) PRIMARY KEY, item_id VARCHAR(64), name VARCHAR(64), stock INT DEFAULT 0, discounts DECIMAL(10,2) DEFAULT 0, price_discount DECIMAL(10,2) DEFAULT 0);
+CREATE TABLE IF NOT EXISTS user_address (id VARCHAR(64) PRIMARY KEY, user_id VARCHAR(64), receiver VARCHAR(32), mobile VARCHAR(20), province VARCHAR(32), city VARCHAR(32), district VARCHAR(32), detail VARCHAR(255), is_default INT DEFAULT 0, created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, updated_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+CREATE TABLE IF NOT EXISTS orders (id VARCHAR(64) PRIMARY KEY, order_id VARCHAR(64) UNIQUE, user_id VARCHAR(64), receiver_name VARCHAR(32), receiver_mobile VARCHAR(20), total_amount DECIMAL(10,2), pay_method INT, status INT DEFAULT 10, created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, pay_time TIMESTAMP);
+CREATE TABLE IF NOT EXISTS order_items (id VARCHAR(64) PRIMARY KEY, order_id VARCHAR(64), item_id VARCHAR(64), item_name VARCHAR(64), item_spec_id VARCHAR(64), item_spec_name VARCHAR(64), price DECIMAL(10,2), buy_counts INT, total_amount DECIMAL(10,2));
+CREATE TABLE IF NOT EXISTS order_status (id VARCHAR(64) PRIMARY KEY, order_id VARCHAR(64), order_status INT, created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP, remark VARCHAR(255));
+CREATE TABLE IF NOT EXISTS items_comments (id VARCHAR(64) PRIMARY KEY, user_id VARCHAR(64), item_id VARCHAR(64), order_id VARCHAR(64), comment_level INT, content VARCHAR(500), created_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP);
+MERGE INTO category KEY(id) VALUES (1,'热销水果',1,0,'',1),(2,'新鲜蔬菜',1,0,'',2),(3,'苹果',2,1,'',1),(4,'叶菜',2,2,'',2);
+MERGE INTO items (id,item_name,cat_id,root_cat_id,sell_counts,price,main_img,content) KEY(id) VALUES ('demo-apple','红富士苹果',3,1,128,19.90,'/images/apple.jpg','脆甜多汁，新鲜采摘');
+MERGE INTO items_spec KEY(id) VALUES ('spec-apple-1','demo-apple','2斤装',100,19.90,19.90);
+MERGE INTO users (id,username,password,nickname,face,mobile,email,sex) KEY(id) VALUES ('demo-user','demo','demo','演示用户','', '13800000000','demo@example.com',2);

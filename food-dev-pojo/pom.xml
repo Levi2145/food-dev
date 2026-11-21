@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 1. 这里是父工程的配置 -->
+    <parent>
+        <groupId>com.L</groupId>
+        <artifactId>food-dev</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <!-- 2. 这里是你当前这个子模块自己的配置（必须要有） -->
+    <artifactId>food-dev-pojo</artifactId>
+    <!-- <groupId>com.L</groupId>  可选，默认继承父类的 groupId -->
+    <!-- <version>1.0-SNAPSHOT</version> 可选，默认继承父类 -->
+    <!-- <packaging>jar</packaging> 或 <packaging>war</packaging> 根据你的项目类型决定 -->
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency><groupId>com.baomidou</groupId><artifactId>mybatis-plus-annotation</artifactId></dependency>
+        <dependency><groupId>org.projectlombok</groupId><artifactId>lombok</artifactId><optional>true</optional></dependency>
+        <dependency><groupId>javax.validation</groupId><artifactId>validation-api</artifactId></dependency>
+        <dependency><groupId>io.swagger</groupId><artifactId>swagger-annotations</artifactId><version>1.6.11</version></dependency>
+        <dependency>
+            <groupId>com.L</groupId>
+            <artifactId>food-dev-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+
+</project>
